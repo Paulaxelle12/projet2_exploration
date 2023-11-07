@@ -1,3 +1,9 @@
+const express = require('express');
+const { check, validationResult } = require('express-validator');
+const app = express();
+
+app.use(express.json());
+
 // Conversion de Longueur
 function metersToFeet(meters) {
   return meters * 3.28084;
@@ -25,7 +31,7 @@ function fahrenheitToCelsius(fahrenheit) {
   return (fahrenheit - 32) * 5/9;
 }
 
-// Conversion de Devise
+// Conversion de Devise (Exemple)
 function bitcoinToCAD(bitcoin) {
   // Remplacez cette valeur par le taux de change actuel
   const exchangeRateBTCtoCAD = 50000; // Exemple seulement
@@ -47,18 +53,62 @@ function gallonsToLiters(gallons) {
   return gallons / 0.264172;
 }
 
-// Exemples d'utilisation
-console.log("5 mètres équivalent à " + metersToFeet(5) + " pieds.");
-console.log("10 pieds équivalents à " + feetToMeters(10) + " mètres.");
+// Validation des entrées avec express-validator
+const validateConversion = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next();
+};
 
-console.log("2 kilogrammes équivalents à " + kilogramsToPounds(2) + " livres.");
-console.log("5 livres équivalent à " + poundsToKilograms(5) + " kilogrammes.");
+// Routes pour les conversions de longueur
+app.get('/convert/meters-to-feet', [
+  check('meters').isFloat()
+], validateConversion, (req, res) => {
+  const meters = parseFloat(req.query.meters);
+  const result = metersToFeet(meters);
+  res.json({ result });
+});
 
-console.log("20 degrés Celsius équivalent à " + celsiusToFahrenheit(20) + " degrés Fahrenheit.");
-console.log("68 degrés Fahrenheit équivalents à " + fahrenheitToCelsius(68) + " degrés Celsius.");
+app.get('/convert/feet-to-meters', [
+  check('feet').isFloat()
+], validateConversion, (req, res) => {
+  const feet = parseFloat(req.query.feet);
+  const result = feetToMeters(feet);
+  res.json({ result });
+});
 
-console.log("1 Bitcoin équivaut à " + bitcoinToCAD(1) + " dollars canadiens.");
-console.log("1000 dollars canadiens équivalent à " + CADToBitcoin(1000) + " Bitcoins.");
+// Routes pour les conversions de poids (similaires aux conversions de longueur)
 
-console.log("10 litres équivalent à " + litersToGallons(10) + " gallons.");
-console.log("5 gallons équivalents à " + gallonsToLiters(5) + " litres.");
+// Routes pour les conversions de température (similaires aux conversions de longueur)
+
+// Routes pour les conversions de devise
+app.get('/convert/bitcoin-to-cad', [
+  check('bitcoin').isFloat()
+], validateConversion, (req, res) => {
+  const bitcoin = parseFloat(req.query.bitcoin);
+  const result = bitcoinToCAD(bitcoin);
+  res.json({ result });
+});
+
+app.get('/convert/cad-to-bitcoin', [
+  check('cad').isFloat()
+], validateConversion, (req, res) => {
+  const cad = parseFloat(req.query.cad);
+  const result = CADToBitcoin(cad);
+  res.json({ result });
+});
+
+// Routes pour les conversions de volume (similaires aux conversions de longueur)
+
+// Gestion des erreurs pour les routes non définies
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not Found' });
+});
+
+// Démarrage du serveur
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
