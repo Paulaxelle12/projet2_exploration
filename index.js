@@ -8,4 +8,4 @@ app.get("/", (req, res) => {
     res.send("Home sweet home");
 });
 
-app.listen(80, () => console.log('Server started'));
+app.listen(8080, () => console.log('Server started'));

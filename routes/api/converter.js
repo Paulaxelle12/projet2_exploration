@@ -19,28 +19,26 @@ router.post("/", async (req, res) => {
         // Send the converted value in the response
         res.send(`Converted value: ${meters} meters.`);
     }
-    else if(type.toLowerCase() === "metersToFeet")
-    {
-      // log to server console for debugging
-      console.log("received data: " + req.body.type + " for " + req.body.value);
-      //Conversion
-      const feet = metersToFeet(value);
-      // Log the received data and the converted value
-      console.log(`Received data: ${value} meters. Converted to ${feet} feet.`);
-      //Envoi
-      res.send(`Converted value: ${feet} feet.`);
+    else if(type.toLowerCase() === "meters2feet" && !isNaN(value)){
+        // log to server console for debugging
+        console.log("received data: " + req.body.type + " for " + req.body.value);
+        //Conversion
+        const feet = metersToFeet(value);
+        // Log the received data and the converted value
+        console.log(`Received data: ${value} meters. Converted to ${feet} feet.`);
+        //Envoi
+        res.send(`Converted value: ${feet} feet.`);
     }
-    else if(type.toLowerCase() === "kiloToPounds")
+    else if(type.toLowerCase() === "kilotopounds" && !isNaN(value))
     {
-      
-      // log to server console for debugging
-      console.log("received data: " + req.body.type + " for " + req.body.value);
-      //Conversion
-      const pounds = kilogramsToPounds(value);
-      // Log the received data and the converted value
-      console.log(`Received data: ${value} kilograms. Converted to ${pounds} pounds.`);
-      //Envoi
-      res.send(`Converted value: ${pounds} pounds.`);
+        // log to server console for debugging
+        console.log("received data: " + req.body.type + " for " + req.body.value);
+        //Conversion
+        const pounds = kilogramsToPounds(value);
+        // Log the received data and the converted value
+        console.log(`Received data: ${value} kilograms. Converted to ${pounds} pounds.`);
+        //Envoi
+        res.send(`Converted value: ${pounds} pounds.`);
     }
     else {
         // If the type is defined or the value is not a valid number, send an error response
