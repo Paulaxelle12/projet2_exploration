@@ -5,7 +5,7 @@ router.get("/", (req, res) => {
     res.send("Need a POST request plz!");
 });
 
-router.post("/", async (req, res) => {
+router.post("/", (req, res) => {
     // Extract type and value from the request body
     const { type, value } = req.body;
     // Check if the type is "feet2meter" and the value is a valid number
@@ -72,16 +72,15 @@ module.exports = router;
 
 // Conversion de Longueur
 function metersToFeet(meters) {
-  return meters * 3.28084;
+    return meters * 3.28084;
 }
 
 function feetToMeters(feet) {
-  return feet / 3.28084;
+    return feet / 3.28084;
 }
 
-// Conversion de Poids
 function kilogramsToPounds(kilograms) {
-  return kilograms * 2.20462;
+    return kilograms * 2.20462;
 }
 
 function poundsToKilograms(pounds) {
