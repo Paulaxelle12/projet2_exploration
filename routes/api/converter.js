@@ -1,5 +1,28 @@
 const express = require("express");
 const router = express.Router();
+const https = require('https');
+const fs = require('fs');
+
+const app = express();
+
+// Redirection HTTP vers HTTPS
+app.use((req, res, next) => {
+  if (req.secure) {
+    return next();
+  }
+  res.redirect(`https://${req.headers.host}${req.url}`);
+});
+
+const httpsOptions = {
+  key: fs.readFileSync('chemin/vers/votre/certificat-key.pem'),
+  cert: fs.readFileSync('chemin/vers/votre/certificat-cert.pem')
+};
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(httpsOptions, app);
+
+httpServer.listen(80);
+httpsServer.listen(443);
 
 router.get("/", (req, res) => {
     res.send("Need a POST request plz!");
