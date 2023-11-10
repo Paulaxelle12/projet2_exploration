@@ -2,36 +2,50 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
+//Vérification du type de requête
 router.get("/", (req, res) => {
-    res.send("Need a POST request plz!");
+    res.send("Only POST request are accepted!");
 });
 
+router.put("/", (req, res) => {
+    res.send("Only POST request are accepted!");
+});
 
+router.delete("/", (req, res) => {
+    res.send("Only POST request are accepted!");
+});
+
+router.patch("/", (req, res) => {
+    res.send("Only POST request are accepted!");
+});
+
+//Requête de conversion
 router.post("/", (req, res) => {
     // Extract type and value from the request body
     const { type, value } = req.body;
+    
     // Check if the type is "feet2meter" and the value is a valid number
-    if (type.toLowerCase() === "feet2meter" && !isNaN(value)) {
+    if (type.toLowerCase() === "feettometer" && !isNaN(value)) {
         // log to server console for debugging
         console.log("received data: " + req.body.type + " for " + req.body.value);
-        // Convert value from feet to meters (1 foot = 0.3048 meters)
-        const meters = parseFloat(value) * 0.3048;
+        // Conversion
+        const meters = feetToMeters(value);
         // Log the received data and the converted value
         console.log(`Received data: ${value} feet. Converted to ${meters} meters.`);
         // Send the converted value in the response
         res.status(200).send(`Converted value: ${meters} meters.`);
     }
-    else if(type.toLowerCase() === "meters2feet" && !isNaN(value)){
+    else if(type.toLowerCase() === "metertofeet" && !isNaN(value)){
         // log to server console for debugging
         console.log("received data: " + req.body.type + " for " + req.body.value);
         //Conversion
         const feet = metersToFeet(value);
         // Log the received data and the converted value
         console.log(`Received data: ${value} meters. Converted to ${feet} feet.`);
-        //Envoi
+        //Envoi de la réponse
         res.status(200).send(`Converted value: ${feet} feet.`);
     }
-    else if(type.toLowerCase() === "kilotopounds" && !isNaN(value))
+    else if(type.toLowerCase() === "kilotopound" && !isNaN(value))
     {
         // log to server console for debugging
         console.log("received data: " + req.body.type + " for " + req.body.value);
@@ -42,7 +56,7 @@ router.post("/", (req, res) => {
         //Envoi
         res.status(200).send(`Converted value: ${pounds} pounds.`);
     }
-    else if(type.toLowerCase() === "poundstokilo" && !isNaN(value))
+    else if(type.toLowerCase() === "poundtokilo" && !isNaN(value))
     {
         // log to server console for debugging
         console.log("received data: " + req.body.type + " for " + req.body.value);
@@ -72,7 +86,6 @@ router.post("/", (req, res) => {
 
 module.exports = router;
 
-// Conversion de Longueur
 function metersToFeet(meters) {
     return meters * 3.28084;
 }
@@ -89,13 +102,9 @@ function poundsToKilograms(pounds) {
   return pounds / 2.20462;
 }
 
-// Conversion de Température
 function celsiusToFahrenheit(celsius) {
   return (celsius * 9/5) + 32;
 }
 
-function fahrenheitToCelsius(fahrenheit) {
-  return (fahrenheit - 32) * 5/9;
-}
 
 
