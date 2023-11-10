@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 
 // Utilisation du middleware body-parser pour parser le corps de la requête
 app.use(bodyParser.json());
@@ -44,7 +44,7 @@ app.use(async (req, res, next) => {
 });
 
 // Utilisation du routeur
-app.use("/", router);
+//app.use("/", router);
 
 // Démarrage du serveur
 //app.listen(PORT, () => {
