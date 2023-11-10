@@ -1,5 +1,5 @@
 // config.js
 module.exports = {
-    mongoURI: "localhost:8080/api/converter",
+    mongoURI: "mongodb+srv://tych:cVIuHDQI7NrwFbhy@cluster0.sbhpnpn.mongodb.net/",
   };
   

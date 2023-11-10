@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Connexion à l'API
+//Connexion à l'MongoDB
 mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on("connected", () => {
@@ -30,7 +30,6 @@ app.use(async (req, res, next) => {
   const accessLog = new AccessLog({
     ip: req.ip,         // IP source de la requête
     method: req.method, // Méthode de la requête (GET, POST, etc.)
-    // Autres informations pertinentes peuvent être ajoutées ici
   });
 
   try {
@@ -39,18 +38,18 @@ app.use(async (req, res, next) => {
     next(); // Passer au middleware suivant
   } catch (err) {
     // Gestion des erreurs lors de l'enregistrement dans la base de données
-    console.error(`Erreur lors de l'enregistrement du journal d'accès : ${err}`);
+    console.error("Erreur lors de l'enregistrement du journal d'accès : ${err}");
     res.status(500).send("Erreur serveur interne");
   }
 });
 
-// Utilisation de votre routeur
+// Utilisation du routeur
 app.use("/", router);
 
 // Démarrage du serveur
-app.listen(PORT, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
-});
+//app.listen(PORT, () => {
+//  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
+//});
 
 //Vérification du type de requête
 router.get("/", (req, res) => {
