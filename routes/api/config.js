@@ -1,5 +1,5 @@
 // config.js
 module.exports = {
-    mongoURI: "mongodb+srv://tych:cVIuHDQI7NrwFbhy@cluster0.sbhpnpn.mongodb.net/",
+    mongoURI: "mongodb+srv://Sali:Lr8cNwXChcBh96X@atlascluster.2bzkbwe.mongodb.net/",
   };
   
