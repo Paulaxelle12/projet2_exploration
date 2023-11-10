@@ -1,1 +1,1 @@
-Lr8cNwXChcBh96X2
+mongodb+srv://Sali:Lr8cNwXChcBh96X2@atlascluster.2bzkbwe.mongodb.net/
