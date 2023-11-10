@@ -33,6 +33,7 @@ app.use(async (req, res, next) => {
   const accessLog = new AccessLog({
     ip: req.ip,         // IP source de la requête
     method: req.method, // Méthode de la requête (GET, POST, etc.)
+    timestamp: req.timestamp, // Date et heure de la requête
   });
 
   try {
