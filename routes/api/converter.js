@@ -1,40 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
-
-
-/*const app = express();
-//const PORT = process.env.PORT || 3000;
-
-// Utilisation du middleware body-parser pour parser le corps de la requête
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));*/
-
-
-
-// Utilisation du routeur
-//app.use("/", router);
-
-// Démarrage du serveur
-//app.listen(PORT, () => {
-//  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
-//});
+const AccessLog = require("./routes/api/accessLogModel"); // Import du modèle
 
 //Vérification du type de requête
-router.get("/", (req, res) => {
-    res.send("Seule les requêtes POST sont acceptées!");
-});
-
-router.put("/", (req, res) => {
-    res.send("Seule les requêtes POST sont acceptées!");
-});
-
-router.delete("/", (req, res) => {
-    res.send("Seule les requêtes POST sont acceptées!");
-});
-
-router.patch("/", (req, res) => {
-    res.send("Seule les requêtes POST sont acceptées!");
+router.all("/", (req, res) => {
+  res.status(405).send("Seules les requêtes POST sont acceptées!");
 });
 
 //Requête de conversion
@@ -114,6 +84,7 @@ router.post("/", (req, res) => {
 
 module.exports = router;
 
+// Fonction de conversion
 function metersToFeet(meters) {
     return meters * 3.28084;
 }
