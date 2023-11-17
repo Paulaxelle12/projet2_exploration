@@ -21,7 +21,7 @@ app.use(async (req, res, next) => {
     next();
   } catch (err) {
     // Gestion des erreurs lors de l'enregistrement dans la base de données
-    console.error("Erreur lors de l'enregistrement du journal d'accès : ${err}");
+    console.error("Erreur lors de l'enregistrement du journal d'accès : ",err);
     res.status(500).send("Erreur serveur interne");
   }
 });

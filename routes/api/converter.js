@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const AccessLog = require("./routes/api/accessLogModel"); // Import du modèle
+//const AccessLog = require("./routes/api/accessLogModel"); // Import du modèle
 
 //Vérification du type de requête
 router.all("/", (req, res) => {
