@@ -1,11 +1,22 @@
 const express = require("express");
 const router = express.Router();
-//const AccessLog = require("./routes/api/accessLogModel"); // Import du modèle
 
 //Vérification du type de requête
-router.all("/", (req, res) => {
+router.get("/", (req, res) => {
   res.status(405).send("Seules les requêtes POST sont acceptées!");
 });
+
+router.put("/", (req, res) => {
+    res.status(405).send("Seules les requêtes POST sont acceptées!");
+  });
+
+  router.delete("/", (req, res) => {
+    res.status(405).send("Seules les requêtes POST sont acceptées!");
+  });
+
+  router.patch("/", (req, res) => {
+    res.status(405).send("Seules les requêtes POST sont acceptées!");
+  });
 
 //Requête de conversion
 router.post("/", (req, res) => {
