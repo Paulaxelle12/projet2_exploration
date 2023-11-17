@@ -41,4 +41,4 @@ mongoose.connection.on("error", (err) => {
   console.error(`Erreur de connexion à MongoDB Atlas : ${err}`);
 });
 
-app.listen(8080, () => console.log('Server started'));
+app.listen(8080, () => console.log('Server started')); 
