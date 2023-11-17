@@ -12,19 +12,21 @@ app.get("/", (req, res) => {
 
 //Pour MongoDB
 app.use(async (req, res, next) => {
-  const accessLog = new AccessLog({
+  const accessLog = await AccessLog.find({
     ip: req.ip,
     method: req.method,
     timestamp: new Date(),
   });
+  res.json(accessLog);
 
   try {
     await accessLog.save();
     next();
   } catch (err) {
-    console.error(`Erreur lors de l'enregistrement du journal d'accès : ${err}`);
+    console.error("Erreur lors de l'enregistrement du journal d'accès : ${err}");
     res.status(500).send("Erreur serveur interne");
   }
+  next();
 });
 
 app.use(express.json());
@@ -38,7 +40,7 @@ mongoose.connection.on("connected", () => {
 });
 
 mongoose.connection.on("error", (err) => {
-  console.error(`Erreur de connexion à MongoDB Atlas : ${err}`);
+  console.error("Erreur de connexion à MongoDB Atlas : ${err}");
 });
 
 app.listen(8080, () => console.log('Server started')); 
