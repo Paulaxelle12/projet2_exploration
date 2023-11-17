@@ -7,24 +7,24 @@ const bodyParser = require("body-parser");
 
 // Middleware pour gérer les journaux d'accès
 app.use(async (req, res, next) => {
-  // Création d'un nouvel objet AccessLog avec les informations de la requête
-  const accessLog = new AccessLog({
-    ip: req.ip,         // IP source de la requête
-    method: req.method, // Méthode de la requête (GET, POST, etc.)
-    timestamp: new Date(), // Date et heure de la requête
-  });
-
-  // Tentative d'enregistrement du journal d'accès dans la base de données
   try {
+    // Création d'un nouvel objet AccessLog avec les informations de la requête
+    const accessLog = new AccessLog({
+      ip: req.ip,         // IP source de la requête
+      method: req.method, // Méthode de la requête (GET, POST, etc.)
+      timestamp: new Date(), // Date et heure de la requête
+    });
+
+    // Enregistrement du journal d'accès dans la base de données
     await accessLog.save();
-    // Poursuivre avec le middleware suivant
-    next();
+    next(); // Passer au middleware suivant
   } catch (err) {
     // Gestion des erreurs lors de l'enregistrement dans la base de données
     console.error("Erreur lors de l'enregistrement du journal d'accès : ${err}");
     res.status(500).send("Erreur serveur interne");
   }
 });
+
 
 // Pour DockerFile
 app.get("/", (req, res) => {
