@@ -1,1 +1,4 @@
 mongodb+srv://Sali:XQmtQdrSiGyqhZ1f@atlascluster.2bzkbwe.mongodb.net/
+
+User: client
+Mdp: uZKWfX6J0aejgnst
